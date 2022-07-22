@@ -4,8 +4,9 @@ namespace SilverStripe\CMS\Model;
 
 use Page;
 use Psr\SimpleCache\CacheInterface;
+use SilverStripe\Admin\TreeHierarchy;
 use SilverStripe\Assets\Shortcodes\FileLinkTracking;
-use SilverStripe\CMS\Controllers\CMSPageEditController;
+use SilverStripe\CMS\Controllers\CMSMain;
 use SilverStripe\CMS\Controllers\ContentController;
 use SilverStripe\CMS\Controllers\ModelAsController;
 use SilverStripe\CMS\Controllers\RootURLController;
@@ -43,7 +44,6 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\Forms\TreeDropdownField;
 use SilverStripe\Forms\TreeMultiselectField;
-use SilverStripe\i18n\i18n;
 use SilverStripe\i18n\i18nEntityProvider;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\CMSPreviewable;
@@ -52,7 +52,6 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\DB;
 use SilverStripe\ORM\HasManyList;
 use SilverStripe\ORM\HiddenClass;
-use SilverStripe\ORM\Hierarchy\Hierarchy;
 use SilverStripe\ORM\ManyManyList;
 use SilverStripe\ORM\ValidationResult;
 use SilverStripe\Security\Group;
@@ -104,7 +103,7 @@ use SilverStripe\View\SSViewer;
  * @method SiteTree Parent()
  * @method HasManyList|SiteTreeLink[] BackLinks() List of SiteTreeLink objects attached to this page
  *
- * @mixin Hierarchy
+ * @mixin TreeHierarchy
  * @mixin Versioned
  * @mixin RecursivePublishable
  * @mixin SiteTreeLinkTracking Added via linktracking.yml to DataObject directly
@@ -313,7 +312,7 @@ class SiteTree extends DataObject implements PermissionProvider, i18nEntityProvi
     private static $icon_class = 'font-icon-page';
 
     private static $extensions = [
-        Hierarchy::class,
+        TreeHierarchy::class,
         Versioned::class,
         InheritedPermissionsExtension::class,
     ];
@@ -735,7 +734,8 @@ class SiteTree extends DataObject implements PermissionProvider, i18nEntityProvi
     public function CMSEditLink()
     {
         $link = Controller::join_links(
-            CMSPageEditController::singleton()->Link('show'),
+            CMSMain::singleton()->Link('edit'),
+            'show',
             $this->ID
         );
         return Director::absoluteURL($link);
@@ -1385,7 +1385,7 @@ class SiteTree extends DataObject implements PermissionProvider, i18nEntityProvi
     public function collateDescendants($condition, &$collator)
     {
         // apply reasonable hierarchy limits
-        $threshold = Config::inst()->get(Hierarchy::class, 'node_threshold_leaf');
+        $threshold = Config::inst()->get(TreeHierarchy::class, 'node_threshold_leaf');
         if ($this->numChildren() > $threshold) {
             return false;
         }

@@ -4,10 +4,7 @@ mappings:
   CMSBatchAction_Archive: SilverStripe\CMS\BatchActions\CMSBatchAction_Archive
   CMSBatchAction_Restore: SilverStripe\CMS\BatchActions\CMSBatchAction_Restore
   CMSMain: SilverStripe\CMS\Controllers\CMSMain
-  CMSPageAddController: SilverStripe\CMS\Controllers\CMSPageAddController
-  CMSPageEditController: SilverStripe\CMS\Controllers\CMSPageEditController
   CMSPageHistoryController: SilverStripe\CMS\Controllers\CMSPageHistoryController
-  CMSPagesController: SilverStripe\CMS\Controllers\CMSPagesController
   CMSPageSettingsController: SilverStripe\CMS\Controllers\CMSPageSettingsController
   CMSSiteTreeFilter: SilverStripe\CMS\Controllers\CMSSiteTreeFilter
   CMSSiteTreeFilter_PublishedPages: SilverStripe\CMS\Controllers\CMSSiteTreeFilter_PublishedPages
@@ -74,7 +71,6 @@ mappings:
   CMSPagesController_ContentToolbar_ss: SilverStripe\CMS\Controllers\CMSPageHistoryController
   CMSSIteTreeFilter_PublishedPages: SilverStripe\CMS\Controllers\CMSSIteTreeFilter_PublishedPages
   URLSegmentField: SilverStripe\CMS\Forms\SiteTreeURLSegmentField
-  CMSPagesController_Tools_ss: SilverStripe\CMS\Controllers\CMSPagesController
   LeftAndMain: SilverStripe\Admin\LeftAndMain
   CMSBatchActionsTest: SilverStripe\CMS\Tests\CMSBatchActionsTest
   CMSMainTest: SilverStripe\CMS\Tests\CMSMainTest
